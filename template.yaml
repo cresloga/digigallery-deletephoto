@@ -19,8 +19,8 @@ Resources:
         photos:
           Type: Api
           Properties:
-            Path: /{picIndex}
-            Method: get
+            Path: /{fileName}
+            Method: delete
   deletePhotoRole:
     Type: AWS::IAM::Role
     Properties:
