@@ -22,9 +22,19 @@ exports.handler = (event, context, callback) => {
 	        const returnData = {			        	
       			fileName: fileName,
       			status: "Picture Deleted Successfully"
-	    	};
-	    	console.log(returnData);
-	    	callback(null, JSON.parse(JSON.stringify(returnData,null,2)));
+			};
+			
+			var response = {
+				"statusCode": 200,
+				"headers": {
+					"Content-Type": "application/json"
+				},
+				"body": JSON.stringify(returnData),
+				"isBase64Encoded": false
+			}
+
+	    	console.log(response);
+	    	callback(null, response);
 		}
     //console.log('the url of the image is', url);		        
     });  
