@@ -27,7 +27,7 @@ exports.handler = (event, context, callback) => {
       			status: "Picture Deleted Successfully"
 			};
 		}
-		respond(responseStatus, responseContentType, responseBody, callback)
+		respond(responseStatus, responseContentType, responseBody, callback);
     });  
 };
 
