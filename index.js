@@ -12,30 +12,32 @@ exports.handler = (event, context, callback) => {
 	var fileName = event.pathParameters.fileName;
 	console.log("Received file name :"+fileName);
 	const s3 = new S3(awsS3Config);	
-  	var urlParams = {Bucket: S3_BUCKET, Key: fileName};
+	var urlParams = {Bucket: S3_BUCKET, Key: fileName};
+	var responseBody = {};  
+	var responseStatus = 200;
+	var responseContentType = "application/json";
     s3.deleteObject(urlParams, function(err, data){
     	if(err){
-			console.log(err);
-		    callback(null, JSON.parse(JSON.stringify(err,null,2)));
+			responseBody = err;
+			responseStatus = 417;
 		}
 		else{					
-	        const returnData = {			        	
+	        responseBody = {			        	
       			fileName: fileName,
       			status: "Picture Deleted Successfully"
 			};
-			
-			var response = {
-				"statusCode": 200,
-				"headers": {
-					"Content-Type": "application/json"
-				},
-				"body": JSON.stringify(returnData),
-				"isBase64Encoded": false
-			}
-
-	    	console.log(response);
-	    	callback(null, response);
 		}
-    //console.log('the url of the image is', url);		        
+
+    	var response = {
+			"statusCode": responseStatus,
+			"headers": {
+				"Content-Type": responseContentType
+			},
+			"body": JSON.stringify(responseBody),
+			"isBase64Encoded": false
+		}
+
+		console.log(response);
+		callback(null, response);
     });  
 };
