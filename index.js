@@ -27,17 +27,19 @@ exports.handler = (event, context, callback) => {
       			status: "Picture Deleted Successfully"
 			};
 		}
-
-    	var response = {
-			"statusCode": responseStatus,
-			"headers": {
-				"Content-Type": responseContentType
-			},
-			"body": JSON.stringify(responseBody),
-			"isBase64Encoded": false
-		}
-
-		console.log(response);
-		callback(null, response);
+		respond(responseStatus, responseContentType, responseBody, callback)
     });  
 };
+
+function respond(responseStatus, responseContentType, responseBody, callback){
+	var response = {
+		"statusCode": responseStatus,
+		"headers": {
+			"Content-Type": responseContentType
+		},
+		"body": JSON.stringify(responseBody),
+		"isBase64Encoded": false
+	}
+	console.log(response);
+	callback(null,response);
+}
